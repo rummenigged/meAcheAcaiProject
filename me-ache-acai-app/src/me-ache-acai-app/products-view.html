@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="products-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+        .iron-item a{
+            color: green;
+        }
+        
+        h2{
+            color: black;
+        }
+    </style>
+    
+    <firebase-query 
+        id="query" 
+        app-name="Delivery" 
+        path="/categories/"
+        data="{{data}}">
+    </firebase-query>
+       
+   <firebase-query 
+        id="queryProdutos" 
+        app-name="Delivery" 
+        path="/categories/produtos"
+        data="{{data}}">
+    </firebase-query>
+    
+    <iron-list items="[[list]]" as="item">            
+        <template>
+            <span class="iron-item"><a href="[[item.nameRoute]]">[[item.id]]</a></span>
+        </template>
+    </iron-list>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ProductsView extends Polymer.Element {
+      static get is() { return 'products-view'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'Products'
+          },
+            
+            list:{
+                type: Array,
+                notify: true
+            },
+            
+            value:{
+                type: String,
+                notify: true
+            }
+        };
+      }
+    }
+
+    window.customElements.define(ProductsView.is, ProductsView);
+  </script>
+</dom-module>

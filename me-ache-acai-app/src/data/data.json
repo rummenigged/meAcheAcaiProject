@@ -1,0 +1,32 @@
+{ "menuitems":[
+    { 
+        "name": "Dashboard",
+        "nameRoute": "dashboard"
+        
+    },
+    { 
+        "name": "Pedidos",
+        "nameRoute": "pedidos"
+        
+    },
+    { 
+        "name": "Categorias",
+        "nameRoute": "categorias"
+    },
+    { 
+        "name": "Usuários",
+        "nameRoute": "usuarios"
+    },
+    { 
+        "name": "Endereços",
+        "nameRoute": "enderecos"
+    },
+    { 
+        "name": "Configurações",
+        "nameRoute": "configuracoes"
+    },
+    { 
+        "name": "Supermarket",
+        "nameRoute": "supermarket"
+    }
+]}

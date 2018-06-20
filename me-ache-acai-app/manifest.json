@@ -1,0 +1,7 @@
+{
+  "name": "me-ache-acai-app",
+  "short_name": "me-ache-acai-app",
+  "description": "Delivery App",
+  "start_url": "/",
+  "display": "standalone"
+}
