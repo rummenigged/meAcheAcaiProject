@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="acai-app-admin">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AcaiAppAdmin extends Polymer.Element {
+      static get is() { return 'acai-app-admin'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'acai-app-admin'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AcaiAppAdmin.is, AcaiAppAdmin);
+  </script>
+</dom-module>

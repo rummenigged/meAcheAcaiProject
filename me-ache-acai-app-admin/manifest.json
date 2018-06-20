@@ -1,0 +1,7 @@
+{
+  "name": "me-ache-acai-app-admin",
+  "short_name": "me-ache-acai-app-admin",
+  "description": "Delivery App Admin",
+  "start_url": "/",
+  "display": "standalone"
+}
