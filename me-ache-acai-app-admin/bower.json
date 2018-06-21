@@ -3,7 +3,11 @@
   "description": "Delivery App Admin",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.2.2",
+    "paper-button": "PolymerElements/paper-button#^2.1.1",
+    "polymerfire": "firebase/polymerfire#^2.2.1",
+    "iron-list": "PolymerElements/iron-list#^2.0.16"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",

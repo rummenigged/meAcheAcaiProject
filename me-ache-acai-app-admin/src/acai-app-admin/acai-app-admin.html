@@ -1,13 +1,34 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<!--Iron Components-->
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+
+<!--Paper Components-->
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<!--Firebase Components-->
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+
+<!--Views-->
+<link rel="import" href="categories-view.html">
+
 <dom-module id="acai-app-admin">
   <template>
-    <style>
+    <style include="flaty-bootstrap">
       :host {
         display: block;
       }
     </style>
+    
+    <firebase-app        
+        database-url="https://delivery-70343.firebaseio.com"
+        api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg">
+    </firebase-app>
+   
+   
     <h2>Hello [[prop1]]!</h2>
+    <categories-view></categories-view>
   </template>
 
   <script>
