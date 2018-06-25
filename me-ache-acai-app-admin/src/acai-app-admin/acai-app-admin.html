@@ -2,17 +2,25 @@
 
 <!--Iron Components-->
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <!--Paper Components-->
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
 <!--Firebase Components-->
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+
 <!--Views-->
 <link rel="import" href="categories-view.html">
 <link rel="import" href="products-view.html">
+<link rel="import" href="home-view.html">
 
 <dom-module id="acai-app-admin">
   <template>
@@ -22,23 +30,38 @@
       }
     </style>
     
+    <app-location
+      route="{{route}}">
+    </app-location>    
+
+    <app-route
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+      active="{{pageActive}}">
+    </app-route>
+    
     <firebase-app
         database-url="https://delivery-70343.firebaseio.com"
         api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg"
         auth-domain="delivery-70343.firebaseapp.com">
     </firebase-app>
-   
-<!--
-   <firebase-app
-        database-url="https://pwapp-2a8cd.firebaseio.com"
-        api-key="AIzaSyCowEVA8kLRh6_xQODE6einV3Zqrx7pyXo"
-        auth-domain="pwapp-2a8cd.firebaseapp.com">
-    </firebase-app>
--->
     
-    <h2>Hello [[prop1]]!</h2>
-    <categories-view></categories-view>
-    <products-view></products-view>
+    <paper-toolbar class="small">
+      <paper-icon-button slot="top" icon="menu"></paper-icon-button>
+    </paper-toolbar>
+        
+    <iron-pages
+        selected="[[page]]"
+        attr-for-selected="name"
+        fallback-selection="view-404"
+        role="main">
+
+        <home-view name="home"></home-view>
+        <products-view name="produtos"></products-view>
+        <categories-view name="categorias"></categories-view>
+    </iron-pages>
   </template>
 
   <script>
@@ -53,9 +76,25 @@
           prop1: {
             type: String,
             value: 'acai-app-admin'
-          }
+          },
+            page:{
+                type: String,
+                reflectToAttribute: true,
+                notify: true
+            }
         };
       }
+        
+        static get observers(){
+            return[
+              '_routePageChanged(routeData.page)'  
+            ];
+        }
+        
+        _routePageChanged(page){
+            console.log("page - " + page);
+            this.page = page || 'home';
+        }
     }
 
     window.customElements.define(AcaiAppAdmin.is, AcaiAppAdmin);

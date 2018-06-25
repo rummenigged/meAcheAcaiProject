@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 
 <link rel="import" href="products-view.html">
 
@@ -21,7 +22,8 @@
         
     <firebase-app
         database-url="https://delivery-70343.firebaseio.com"
-        api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg">
+        api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg"
+        auth-domain="delivery-70343.firebaseapp.com">
     </firebase-app>
         
 <!--    <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth>-->

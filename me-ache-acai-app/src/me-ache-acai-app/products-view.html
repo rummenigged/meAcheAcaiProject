@@ -16,24 +16,16 @@
             color: black;
         }
     </style>
-    
-    <firebase-query 
-        id="query" 
-        app-name="Delivery" 
-        path="/categories/"
-        data="{{data}}">
-    </firebase-query>
-       
+           
    <firebase-query 
         id="queryProdutos" 
-        app-name="Delivery" 
-        path="/categories/produtos"
+        path="/categories"
         data="{{data}}">
     </firebase-query>
     
-    <iron-list items="[[list]]" as="item">            
+    <iron-list items="{{data}}" as="item">            
         <template>
-            <span class="iron-item"><a href="[[item.nameRoute]]">[[item.id]]</a></span>
+            <span class="iron-item"><a href="[[item.nameRoute]]">[[item.name]]</a></span>
         </template>
     </iron-list>
   </template>
