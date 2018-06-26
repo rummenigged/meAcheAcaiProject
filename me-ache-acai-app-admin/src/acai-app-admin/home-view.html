@@ -1,57 +1,80 @@
 <dom-module id="home-view">
     <template>
         <style include="flaty-bootstrap">
+            @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
             :host {
                 display: block;
             }
             
             paper-button {
                 color: white;
+                background-color: blue;
             }
-            .card{
+            
+            .card {
                 margin-bottom: 3%;
-                 
+                margin-top: 3%;
+                font-family: 'Source Sans Pro', sans-serif;
             }
-            .fundo {
-                
+            
+            .centro {
+                margin: auto;
+                max-width: 99%;
+            }
+            
+            .btn {
+                background-color: #1976d2;
+                color: white;
+                font-family: 'Source Sans Pro', sans-serif;
             }
         </style>
         <container>
-            
-            <div class="row">
-                <div class="col-md-4 col-sm-12 fundo">
-                    <div class="card" style="width: 96%;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/pedidos" class="text-center btn btn-primary">Pedidos</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Pedidos</h5>
+                                <p class="card-text">Aqui você poderá ver seus pedidos.</p>
+                                <a href="/pedidos" class="text-center btn">Pedidos</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="col-md-4 col-sm-12 fundo">
-                           
-                    <div class="card" style="width: 96%">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/produtos" class="text-center btn btn-primary">Produtos</a>
+                    <br>
+                    <div class="col-md-4 col-sm-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Produtos</h5>
+                                <p class="card-text">Aqui você poderá gerenciar seus produtos.</p>
+                                <a href="/produtos" class="text-center btn">Produtos</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-12 fundo">
-                           
-                    <div class="card" style="width: 96%;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/Categorias" class="text-center btn btn-primary">Categorias</a>
+                    <div class="col-md-4 col-sm-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Categorias</h5>
+                                <p class="card-text">Aqui você poderá gerenciar suas categorias.</p>
+                                <a href="/Categorias" class="text-center btn">Categorias</a>
+                            </div>
                         </div>
+
                     </div>
-                    
+                    <div class="col-md-4 col-sm-12">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="/Categorias" class="text-center btn btn-primary">Categorias</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
 
 
         </container>

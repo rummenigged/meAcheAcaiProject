@@ -5,9 +5,13 @@
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <!--Paper Components-->
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
 <!--Firebase Components-->
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
@@ -23,82 +27,84 @@
 <link rel="import" href="home-view.html">
 
 <dom-module id="acai-app-admin">
-  <template>
-    <style include="flaty-bootstrap">
-      :host {
-        display: block;
-      }
-          
-    </style>
-    
-    <app-location
-      route="{{route}}">
-    </app-location>    
-
-    <app-route
-      route="{{route}}"
-      pattern="/:page"
-      data="{{routeData}}"
-      tail="{{subroute}}"
-      active="{{pageActive}}">
-    </app-route>
-    
-    <firebase-app
-        database-url="https://delivery-70343.firebaseio.com"
-        api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg"
-        auth-domain="delivery-70343.firebaseapp.com">
-    </firebase-app>
-    
-    <paper-toolbar class="small">
-      <paper-icon-button slot="top" icon="menu">ME ACHA</paper-icon-button>
-    </paper-toolbar>
-        
-    <iron-pages
-        selected="[[page]]"
-        attr-for-selected="name"
-        fallback-selection="view-404"
-        role="main">
-
-        <home-view name="home"></home-view>
-        <products-view name="produtos"></products-view>
-        <categories-view name="categorias"></categories-view>
-        
-    </iron-pages>
-  </template>
-
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class AcaiAppAdmin extends Polymer.Element {
-      static get is() { return 'acai-app-admin'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'acai-app-admin'
-          },
-            page:{
-                type: String,
-                reflectToAttribute: true,
-                notify: true
+    <template>
+        <style include="flaty-bootstrap">
+            :host {
+                display: block;
             }
-        };
-      }
-        
-        static get observers(){
-            return[
-              '_routePageChanged(routeData.page)'  
-            ];
-        }
-        
-        _routePageChanged(page){
-            console.log("page - " + page);
-            this.page = page || 'home';
-        }
-    }
+            
+            app-toolbar {
+                /* Toolbar is the main header, so give it some color */
+                background-color: #9b49cc;
+                font-family: 'Roboto', Helvetica, sans-serif;
+                color: white;
+                --app-toolbar-font-size: 24px;
+            }
+        </style>
 
-    window.customElements.define(AcaiAppAdmin.is, AcaiAppAdmin);
-  </script>
+        <app-location route="{{route}}">
+        </app-location>
+
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}" active="{{pageActive}}">
+        </app-route>
+
+        <firebase-app database-url="https://delivery-70343.firebaseio.com" api-key="AIzaSyC-mL1g_nIx35h-kavXEVJ6aFjQwlOnCsg" auth-domain="delivery-70343.firebaseapp.com">
+        </firebase-app>
+
+        <app-header-layout>
+            <div>
+                <app-header fixed effects="waterfall">
+                    <app-toolbar>
+                        <div main-title>Me Acha</div>
+                    </app-toolbar>
+                </app-header>
+            </div>
+        </app-header-layout>
+
+        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view-404" role="main">
+
+            <home-view name="home"></home-view>
+            <products-view name="produtos"></products-view>
+            <categories-view name="categorias"></categories-view>
+
+        </iron-pages>
+    </template>
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class AcaiAppAdmin extends Polymer.Element {
+            static get is() {
+                return 'acai-app-admin';
+            }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'acai-app-admin'
+                    },
+                    page: {
+                        type: String,
+                        reflectToAttribute: true,
+                        notify: true
+                    }
+                };
+            }
+
+            static get observers() {
+                return [
+              '_routePageChanged(routeData.page)'
+            ];
+            }
+
+            _routePageChanged(page) {
+                console.log("page - " + page);
+                this.page = page || 'home';
+            }
+        }
+
+        window.customElements.define(AcaiAppAdmin.is, AcaiAppAdmin);
+    </script>
 </dom-module>
