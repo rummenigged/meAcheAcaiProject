@@ -20,11 +20,14 @@
     
     <h2>[[prop1]]!</h2>
     
-    <paper-input always-float-label label="Nome" id="fieldName"></paper-input>
-    <paper-input always-float-label label="Descrição" id="fieldDescription"></paper-input>
-    <paper-button class="teal right" on-click="_addCategorie">Cadastrar</paper-button>
-    <paper-button class="red right">Cancelar</paper-button>
-    
+    <div class="row">
+        <paper-input always-float-label label="Nome" id="fieldName" class="col-4"></paper-input>
+        <paper-input always-float-label label="Descrição" id="fieldDescription" class="col-8"></paper-input>        
+    </div>
+    <div class="row float-right">
+        <paper-button class="teal" on-click="_addCategorie">Cadastrar</paper-button>
+        <paper-button class="red">Cancelar</paper-button>
+    </div>
     <iron-list items={{categories}} as="item">
         <template>
             <span>[[item.name]] - [[item.description]]</span>

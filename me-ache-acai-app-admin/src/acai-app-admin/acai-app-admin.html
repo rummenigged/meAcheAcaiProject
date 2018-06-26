@@ -52,18 +52,20 @@
     <paper-toolbar class="small">
       <paper-icon-button slot="top" icon="menu">ME ACHA</paper-icon-button>
     </paper-toolbar>
-        
-    <iron-pages
-        selected="[[page]]"
-        attr-for-selected="name"
-        fallback-selection="view-404"
-        role="main">
+    
+    <div class="container">
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="view-404"
+            role="main">
 
-        <home-view name="home"></home-view>
-        <products-view name="produtos"></products-view>
-        <categories-view name="categorias"></categories-view>
-        
-    </iron-pages>
+            <home-view name="home"></home-view>
+            <products-view name="produtos"></products-view>
+            <categories-view name="categorias"></categories-view>
+
+        </iron-pages>
+    </div>
   </template>
 
   <script>

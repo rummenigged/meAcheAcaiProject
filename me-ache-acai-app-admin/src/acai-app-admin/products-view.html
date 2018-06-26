@@ -17,8 +17,8 @@
     </style>
     
     <firebase-query
-        id="query"
-        path="/categories/{{itemCategorieSelected.$key}}products"
+        id="queryProd"
+        path="/categories/{{categorieKey}}/products"
         data="{{products}}"> 
     </firebase-query>
        
@@ -34,19 +34,24 @@
         <paper-input always-float-label label="Nome" id="fieldName" class="col-4"></paper-input>
         <paper-input always-float-label label="Preço" id="fieldPrice" class="col-2"></paper-input>
         <paper-input always-float-label label="Descrição" id="fieldDescription" class="col-6"></paper-input>
-        <paper-dropdown-menu-light label="Categorias">
-          <paper-listbox slot="dropdown-content" selected="{{itemCategorieSelected}}">           
-            <dom-repeat items="{{categories}}" as="item">               
+        
+        <paper-dropdown-menu-light label="Categorias" role="combobox" aria-autocomplete="none" 
+         aria-haspopup="true" class="col-4">
+          <paper-listbox slot="dropdown-content" selected="{{itemCategorieSelected}}" role="listbox">
+            <dom-repeat items="{{categories}}" as="cat">
                 <template>
-                   <paper-item>[[item.name]]</paper-item>
-                </template>            
+                   <paper-item role="option">[[cat.name]]</paper-item>
+                </template>
             </dom-repeat>
           </paper-listbox>
         </paper-dropdown-menu-light>
     </div>
-    <paper-button class="teal right" on-click="_addProduct">Cadastrar</paper-button>
-    <paper-button class="red right">Cancelar</paper-button>
-    Item = {{itemSelected}}
+    <div class="row float-right">
+        <paper-button class="teal" on-click="_addProduct">Cadastrar</paper-button>
+        <paper-button class="red">Cancelar</paper-button>
+    </div>
+    Item = {{itemCategorieSelected}}
+    Categorie Key = {{categorieKey}}
     <iron-list items={{products}} as="item">
         <template>
             <span>[[item.name]] - [[item.description]] - R$[[item.price]]</span>
@@ -73,13 +78,16 @@
             itemCategorieSelected:{
                 type: Number,
                 value: 0
+            },
+            categorieKey:{
+                type: String            
             }
         };
       }
         
         _addProduct(){   
-            console.log(this.categories[this.itemCategorieSelected].$key);
-            let ref = this.$.query.ref;
+            this.categorieKey = this.categories[this.itemCategorieSelected].$key;
+            let ref = this.$.queryProd.ref;
             let newProduct = {};
             newProduct.name = this.$.fieldName.value;
             newProduct.price = this.$.fieldPrice.value;

@@ -22,12 +22,14 @@
         path="/categories"
         data="{{categories}}">
     </firebase-query>
+    
     <iron-list items="{{categories}}" as="categorie">            
         <template>
-            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.name]]</a></span>
-            <iron-list items="{{categorie.products}}" as="product">            
+            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.name]] - {{categorie.products}}</a></span>
+<!--            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.products]]</a></span>    -->
+            <iron-list items="{{categorie.products}}" as="product">
                 <template>
-                    <span class="iron-item"><a href="[[product.nameRoute]]">[[product.name]]</a></span>
+                    <span class="iron-item"><a href="[[product.nameRoute]]">[[product]]</a></span>
                 </template>
             </iron-list>
         </template>
