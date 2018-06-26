@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
@@ -17,7 +18,7 @@
     
     <firebase-query
         id="query"
-        path="/categories/products"
+        path="/categories/{{itemCategorieSelected.$key}}products"
         data="{{products}}"> 
     </firebase-query>
        
@@ -33,19 +34,19 @@
         <paper-input always-float-label label="Nome" id="fieldName" class="col-4"></paper-input>
         <paper-input always-float-label label="Preço" id="fieldPrice" class="col-2"></paper-input>
         <paper-input always-float-label label="Descrição" id="fieldDescription" class="col-6"></paper-input>
-        <paper-dropdown-menu label="Dinosaurs" class="col-6">
-          <paper-listbox slot="dropdown-content" selected="1">
-            <iron-list items={{categories}} as="item">
-                <template>                
-                    <paper-item>[[item.name]]</paper-item>
-                </template>
-            </iron-list>
+        <paper-dropdown-menu-light label="Categorias">
+          <paper-listbox slot="dropdown-content" selected="{{itemCategorieSelected}}">           
+            <dom-repeat items="{{categories}}" as="item">               
+                <template>
+                   <paper-item>[[item.name]]</paper-item>
+                </template>            
+            </dom-repeat>
           </paper-listbox>
-        </paper-dropdown-menu>
+        </paper-dropdown-menu-light>
     </div>
     <paper-button class="teal right" on-click="_addProduct">Cadastrar</paper-button>
     <paper-button class="red right">Cancelar</paper-button>
-    
+    Item = {{itemSelected}}
     <iron-list items={{products}} as="item">
         <template>
             <span>[[item.name]] - [[item.description]] - R$[[item.price]]</span>
@@ -65,11 +66,19 @@
           prop1: {
             type: String,
             value: 'Products'
-          }
+          },
+            categories:{
+                type: Array
+            },
+            itemCategorieSelected:{
+                type: Number,
+                value: 0
+            }
         };
       }
         
-        _addProduct(){    
+        _addProduct(){   
+            console.log(this.categories[this.itemCategorieSelected].$key);
             let ref = this.$.query.ref;
             let newProduct = {};
             newProduct.name = this.$.fieldName.value;

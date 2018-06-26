@@ -20,12 +20,16 @@
    <firebase-query 
         id="queryProdutos" 
         path="/categories"
-        data="{{data}}">
+        data="{{categories}}">
     </firebase-query>
-    
-    <iron-list items="{{data}}" as="item">            
+    <iron-list items="{{categories}}" as="categorie">            
         <template>
-            <span class="iron-item"><a href="[[item.nameRoute]]">[[item.name]]</a></span>
+            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.name]]</a></span>
+            <iron-list items="{{categorie.products}}" as="product">            
+                <template>
+                    <span class="iron-item"><a href="[[product.nameRoute]]">[[product.name]]</a></span>
+                </template>
+            </iron-list>
         </template>
     </iron-list>
   </template>
@@ -52,9 +56,17 @@
             value:{
                 type: String,
                 notify: true
+            },
+            categories:{
+                type: Array,
+                observer: "_categoriesChanged"
             }
         };
       }
+        
+        _categoriesChanged(e){
+            console.log(e);
+        }
     }
 
     window.customElements.define(ProductsView.is, ProductsView);
