@@ -1,37 +1,82 @@
 <dom-module id="home-view">
-  <template>
-    <style include="flaty-bootstrap">
-      :host {
-        display: block;
-      }
+    <template>
+        <style include="flaty-bootstrap">
+            :host {
+                display: block;
+            }
             
-        paper-button{
-            color: white;
+            paper-button {
+                color: white;
+            }
+            .card{
+                margin-bottom: 3%;
+                 
+            }
+            .fundo {
+                
+            }
+        </style>
+        <container>
+            
+            <div class="row">
+                <div class="col-md-4 col-sm-12 fundo">
+                    <div class="card" style="width: 96%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/pedidos" class="text-center btn btn-primary">Pedidos</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-md-4 col-sm-12 fundo">
+                           
+                    <div class="card" style="width: 96%">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/produtos" class="text-center btn btn-primary">Produtos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 fundo">
+                           
+                    <div class="card" style="width: 96%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/Categorias" class="text-center btn btn-primary">Categorias</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+        </container>
+
+    </template>
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class HomeView extends Polymer.Element {
+            static get is() {
+                return 'home-view';
+            }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'Home'
+                    }
+                };
+            }
         }
-    </style>
-    <h2>[[prop1]]!</h2>
-    <a href="/categorias">Categorias</a>
-    <a href="/produtos">Produtos</a>
-    <a href="/pedidos">Pedidos</a>
-  </template>
 
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class HomeView extends Polymer.Element {
-      static get is() { return 'home-view'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'Home'
-          }
-        };
-      }
-    }
-
-    window.customElements.define(HomeView.is, HomeView);
-  </script>
+        window.customElements.define(HomeView.is, HomeView);
+    </script>
 </dom-module>
