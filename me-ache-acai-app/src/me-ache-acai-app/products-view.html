@@ -1,6 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<!--<link rel="import" href="../style/flaty-bootstrap.html">-->
 
 <dom-module id="products-view">
   <template>
@@ -10,10 +14,17 @@
       }
         .iron-item a{
             color: green;
+            margin-bottom: 10px;
         }
         
         h2{
             color: black;
+        }
+        
+        paper-tabs{
+            width: 100%;
+            background-color: dodgerblue;
+            color: white;
         }
     </style>
            
@@ -22,16 +33,24 @@
         path="/categories"
         data="{{categories}}">
     </firebase-query>
+       
+   <firebase-query 
+        id="query" 
+        path="/categories/{{currentCategoryKey}}/products"
+        data="{{products}}">
+    </firebase-query>
     
-    <iron-list items="{{categories}}" as="categorie">            
-        <template>
-            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.name]] - {{categorie.products}}</a></span>
-<!--            <span class="iron-item"><a href="[[categorie.nameRoute]]">[[categorie.products]]</a></span>    -->
-            <iron-list items="{{categorie.products}}" as="product">
-                <template>
-                    <span class="iron-item"><a href="[[product.nameRoute]]">[[product]]</a></span>
-                </template>
-            </iron-list>
+    <paper-tabs selected="{{itemTab}}" scrollable autoselect>
+       <template is="dom-repeat" items="{{categories}}" as="cat">
+            <paper-tab>[[cat.name]]</paper-tab>
+        </template>                
+    </paper-tabs>
+
+    <iron-list items="{{products}}" as="prod">
+        <template>                
+            <span class="iron-item"><a href="[[cat.nameRoute]]">
+                [[prod.name]] - [[prod.description]]
+            </a></span>                                
         </template>
     </iron-list>
   </template>
@@ -60,14 +79,24 @@
                 notify: true
             },
             categories:{
-                type: Array,
-                observer: "_categoriesChanged"
+                type: Array                
+            },
+            currentCategoryKey:{
+                type: String
+            },
+            itemTab:{
+                type: Number,
+                observer: "_itemTabChanged"
             }
         };
-      }
+      }                
         
-        _categoriesChanged(e){
-            console.log(e);
+        _itemTabChanged(e){
+            this.currentCategoryKey = this.categories[e].$key;
+        }                
+        
+        _getProducts(itemTab){
+            console.log(itemTab);        
         }
     }
 
