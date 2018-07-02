@@ -2,100 +2,163 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu-light.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <dom-module id="products-view">
-  <template>
-    <style include="flaty-bootstrap">
-      :host {
-        display: block;
-      }
-            
-        paper-button{
-            color: white;
-        }
-    </style>
-    
-    <firebase-query
-        id="queryProd"
-        path="/categories/{{categorieKey}}/products"
-        data="{{products}}"> 
-    </firebase-query>
-       
-   <firebase-query
-        id="queryCat"
-        path="/categories"
-        data="{{categories}}"> 
-    </firebase-query>
-    
-    <h2>[[prop1]]!</h2>
-    
-    <div class="row">
-        <paper-input always-float-label label="Nome" id="fieldName" class="col-4"></paper-input>
-        <paper-input always-float-label label="Preço" id="fieldPrice" class="col-2"></paper-input>
-        <paper-input always-float-label label="Descrição" id="fieldDescription" class="col-6"></paper-input>
-        
-        <paper-dropdown-menu-light label="Categorias" role="combobox" aria-autocomplete="none" 
-         aria-haspopup="true" class="col-4">
-          <paper-listbox slot="dropdown-content" selected="{{itemCategorieSelected}}" role="listbox">
-            <dom-repeat items="{{categories}}" as="cat">
-                <template>
-                   <paper-item role="option">[[cat.name]]</paper-item>
-                </template>
-            </dom-repeat>
-          </paper-listbox>
-        </paper-dropdown-menu-light>
-    </div>
-    <div class="row float-right">
-        <paper-button class="teal" on-click="_addProduct">Cadastrar</paper-button>
-        <paper-button class="red">Cancelar</paper-button>
-    </div>
-    Item = {{itemCategorieSelected}}
-    Categorie Key = {{categorieKey}}
-    <iron-list items={{products}} as="item">
-        <template>
-            <span>[[item.name]] - [[item.description]] - R$[[item.price]]</span>
-        </template>
-    </iron-list>
-  </template>
-
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class ProductsView extends Polymer.Element {
-      static get is() { return 'products-view'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'Products'
-          },
-            categories:{
-                type: Array
-            },
-            itemCategorieSelected:{
-                type: Number,
-                value: 0
-            },
-            categorieKey:{
-                type: String            
+    <template>
+        <style include="flaty-bootstrap">
+            :host {
+                display: block;
             }
-        };
-      }
-        
-        _addProduct(){   
-            this.categorieKey = this.categories[this.itemCategorieSelected].$key;
-            let ref = this.$.queryProd.ref;
-            let newProduct = {};
-            newProduct.name = this.$.fieldName.value;
-            newProduct.price = this.$.fieldPrice.value;
-            newProduct.description = this.$.fieldDescription.value;            
-            ref.push(newProduct);
-        }
-    }
+            
+            paper-button {
+                color: white;
+            }
+        </style>
 
-    window.customElements.define(ProductsView.is, ProductsView);
-  </script>
+        <firebase-query id="queryProd" path="/categories/{{categorieKey}}/products" data="{{products}}">
+        </firebase-query>
+
+        <firebase-query id="queryCat" path="/categories" data="{{categories}}">
+        </firebase-query>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <paper-input always-float-label label="Nome" id="fieldName" class="col-6"></paper-input>
+                        <paper-input always-float-label label="Preço" id="fieldPrice" class="col-4"></paper-input>
+                    </div>
+                    <div class="row">
+                        <paper-input always-float-label label="Descrição" id="fieldDescription" class="col-10"></paper-input>
+                    </div>
+                    <div class="row">
+                        <paper-dropdown-menu-light label="Categorias" role="combobox" aria-autocomplete="none" aria-haspopup="true" class="col-4">
+                            <paper-listbox slot="dropdown-content" selected="{{itemCategorieSelected}}" role="listbox">
+                                <dom-repeat items="{{categories}}" as="cat">
+                                    <template>
+                                        <paper-item role="option">[[cat.name]]</paper-item>
+                                    </template>
+                                </dom-repeat>
+                            </paper-listbox>
+                        </paper-dropdown-menu-light>
+                    </div>
+                    <br>
+                    <div class="row float-right">
+                        <paper-button class="teal" on-click="_addProduct">Cadastrar</paper-button>
+                        <paper-button class="red">Cancelar</paper-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item = {{itemCategorieSelected}} Categorie Key = {{categorieKey}}</th>
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Desc.</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <iron-list items={{products}} as="item">
+                    <template>
+                        <tr>
+                            <td>[[item.name]]</td>
+                            <td>[[item.description]]</td>
+                            <td>[[item.price]]</td>
+                        </tr>
+                    </template>
+                </iron-list>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>LISTA</th>
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Desc.</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <iron-list items={{products}} as="item">
+                    <template>
+                        <tr>
+                            <td>NOME</td>
+                            <td>DESC</td>
+                            <td>PRECO</td>
+                        </tr>
+                    </template>
+                </iron-list>
+            </tbody>
+        </table>
+
+
+
+
+
+    </template>
+
+
+
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class ProductsView extends Polymer.Element {
+            static get is() {
+                return 'products-view';
+            }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'Products'
+                    },
+                    categories: {
+                        type: Array
+                    },
+                    itemCategorieSelected: {
+                        type: Number,
+                        value: 0
+                    },
+                    categorieKey: {
+                        type: String
+                    }
+                };
+            }
+
+            _addProduct() {
+                this.categorieKey = this.categories[this.itemCategorieSelected].$key;
+                let ref = this.$.queryProd.ref;
+                let newProduct = {};
+                newProduct.name = this.$.fieldName.value;
+                newProduct.price = this.$.fieldPrice.value;
+                newProduct.description = this.$.fieldDescription.value;
+                ref.push(newProduct);
+            }
+        }
+
+        window.customElements.define(ProductsView.is, ProductsView);
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        });
+    </script>
 </dom-module>
